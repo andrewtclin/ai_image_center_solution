@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: image-factory-configmap
+data:
+  config.js: |
+    window.REACT_APP_API_HOST = "127.0.0.1"
+    window.REACT_APP_API_PORT = "16147"
+    window.REACT_APP_TRAINER_HOST = "127.0.0.1"
+    window.REACT_APP_TRAINER_PORT = "8001"
+  server_host: localhost
+  server_port: "16147"
+  mongo_host: image-factory-mongo-service
+  mongo_port: "27017"

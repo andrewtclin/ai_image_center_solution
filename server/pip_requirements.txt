@@ -1,0 +1,6 @@
+pymongo
+flask
+flask_cors
+flask-mail==0.9.0
+Cython==0.29.21
+numpy==1.19.5

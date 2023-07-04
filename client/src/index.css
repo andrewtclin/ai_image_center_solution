@@ -1,0 +1,19 @@
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+
+svg {
+  vertical-align: baseline;
+}
+
+.ant-image-preview-img-wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.ant-image-preview-img {
+  object-fit: contain;
+  width: 300px;
+  margin-top: -50vh;
+  /* width:400%; */
+}

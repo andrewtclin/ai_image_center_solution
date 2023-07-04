@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.backend.pv.bindSourceCode.pvName }}
+  # annotations:
+  #   "helm.sh/resource-policy": keep
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  volumeMode: Filesystem
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: {{ .Values.backend.pv.bindSourceCode.mountLocalPath }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.backend.pv.bindData.pvName }}
+  # annotations:
+  #   "helm.sh/resource-policy": keep
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  volumeMode: Filesystem
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: {{ .Values.backend.pv.bindData.mountLocalPath }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.database.pv.bindData.pvName }}
+  # annotations:
+  #   "helm.sh/resource-policy": keep
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  volumeMode: Filesystem
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: {{ .Values.database.pv.bindData.mountLocalPath }}

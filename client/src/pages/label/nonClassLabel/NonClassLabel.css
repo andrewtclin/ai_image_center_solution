@@ -1,0 +1,13 @@
+.label__settingsForm .ant-input-group-addon {
+  min-width: 130px;
+}
+
+.label__settingsForm .ant-input {
+  min-width: 200px;
+  height: 32px;
+}
+
+.label__settingsForm > .ant-input-group-wrapper {
+  margin-bottom: 20px;
+  padding: 5px;
+}

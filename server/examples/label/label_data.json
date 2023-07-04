@@ -1,0 +1,54 @@
+{
+  "label_data": [
+    {
+      "name": "Test Project",
+      "pixel_size": {
+        "h": 120,
+        "w": 160
+      },
+      "al_type": "classification",
+      "regions": [
+        {
+          "type": "box",
+          "x": 0.19594694960212197,
+          "y": 0.1259204203557589,
+          "w": 0.19496021220159152,
+          "h": 0.21750663129973474,
+          "highlighted": false,
+          "editingLabels": false,
+          "color": "#f44336",
+          "cls": "Car",
+          "id": "8874548715997894",
+          "tags": ["Black"]
+        },
+        {
+          "type": "polygon",
+          "points": [
+            [0.9359999999999999, 0.5609336829552284],
+            [0.8604031830238726, 0.08348010205337164],
+            [0.6017824933687002, 0.3062917731409048],
+            [0.6654429708222811, 0.7200848765891806]
+          ],
+          "open": false,
+          "highlighted": false,
+          "color": "#2196f3",
+          "cls": "Bicycle",
+          "id": "7689837277253411",
+          "editingLabels": false,
+          "tags": ["Black", "White"]
+        },
+        {
+          "type": "point",
+          "x": 0.2693851590106008,
+          "y": 0.667477029106221,
+          "highlighted": true,
+          "editingLabels": false,
+          "color": "#f44336",
+          "id": "23691643774990578",
+          "cls": "Car"
+        }
+      ],
+      "src": "http://127.0.0.1:16147/ss/file_manager/5f961a08da66ccc164e588d0/5 (2).bmp"
+    }
+  ]
+}

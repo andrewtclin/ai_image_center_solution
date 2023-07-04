@@ -1,0 +1,458 @@
+{
+	"info": {
+		"_postman_id": "ff5ca6e1-2608-4dd5-ba16-13c86edd0b55",
+		"name": "public-huei-piecework-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "/user/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuccu1\",\n\t\"password\": \"mytest01\",\n\t\"email\": \"testuccu1@test.com\"\n}"
+						},
+						"url": {
+							"raw": "{{domain_url}}/user/register",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuccu1\",\n\t\"password\": \"mytest01\"\n}"
+						},
+						"url": {
+							"raw": "{{domain_url}}/user/login",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/logout",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain_url}}/user/logout",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/detail",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain_url}}/user/detail",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"user",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "file_manager",
+			"item": [
+				{
+					"name": "/file_manager/folder/:folder_id/content_folders",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/folder/:folder_id/content_folders",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"folder",
+								":folder_id",
+								"content_folders"
+							],
+							"variable": [
+								{
+									"key": "folder_id",
+									"value": "5e0992f5518d69e03b86f0ad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/file_manager/folder/:folder_id/content_files",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/folder/:folder_id/content_files?page=1&size=50",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"folder",
+								":folder_id",
+								"content_files"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "50"
+								}
+							],
+							"variable": [
+								{
+									"key": "folder_id",
+									"value": "5e0992f5518d69e03b86f0ad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/file_manager/folder/:folder_id/content_uri_path",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/folder/:folder_id/content_uri_path",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"folder",
+								":folder_id",
+								"content_uri_path"
+							],
+							"variable": [
+								{
+									"key": "folder_id",
+									"value": "5e0992f5518d69e03b86f0ad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/file_manager/home_folder_id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/home_folder_id",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"home_folder_id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/file_manager/folder/:folder_id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/folder/:folder_id",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"folder",
+								":folder_id"
+							],
+							"variable": [
+								{
+									"key": "folder_id",
+									"value": "5e12c7b0fdce019941ac3193"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/file_manager/folder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"parentId\": \"5e12c7b0fdce019941ac3193\",\n\t\"name\": \"test_folder\"\n}"
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/folder",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"folder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/file_manager/folder/:folder_id/files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/folder/:folder_id/files",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"folder",
+								":folder_id",
+								"files"
+							],
+							"variable": [
+								{
+									"key": "folder_id",
+									"value": "5e12c7b0fdce019941ac3193"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/folder/:folder_id/download_files_zip",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fileIds\": []\n}"
+						},
+						"url": {
+							"raw": "{{domain_url}}/file_manager/folder/:folder_id/download_files_zip",
+							"host": [
+								"{{domain_url}}"
+							],
+							"path": [
+								"file_manager",
+								"folder",
+								":folder_id",
+								"download_files_zip"
+							],
+							"variable": [
+								{
+									"key": "folder_id",
+									"value": "5e0992f5518d69e03b86f0ad"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

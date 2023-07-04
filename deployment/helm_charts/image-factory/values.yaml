@@ -1,0 +1,115 @@
+# Frontend
+frontend:
+  appFullName: image-factory-fe
+
+  replicaCount: 1
+
+  image:
+    repository: registry.gitlab.com/smasoft-ai-team/application/imgfa/imgfa-fe:0.0.0.3
+    pullPolicy: IfNotPresent
+    pullSecrets: gitlab-auth
+
+  env:
+    containerPort: 3000
+
+    configMapName: image-factory-configmap
+    apiHostName: IMGFA_HOST
+    apiPortName: IMGFA_PORT
+    configMapApiHost: server_host
+    configMapApiPort: server_port
+
+  service:
+    type: LoadBalancer
+    protocol: TCP
+    port: 16146
+    targetPort: 80
+    nodePort: 30005
+
+  pv:
+    frontendEnvConfig:
+      volumeName: frontend-env-config-volume
+      mountVirtualPath: /usr/share/nginx/html/config.js
+      subPath: config.js
+      isReadOnly: true
+
+# Backend
+backend:
+  appFullName: image-factory-be
+
+  replicaCount: 1
+
+  image:
+    repository: registry.gitlab.com/smasoft-ai-team/application/imgfa/imgfa-be:0.0.0.3
+    pullPolicy: IfNotPresent
+    pullSecrets: gitlab-auth
+
+  env:
+    containerPort: 16147
+
+    configMapName: image-factory-configmap
+    apiHostName: MONGO_HOST
+    apiPortName: MONGO_PORT
+    configMapApiHost: mongo_host
+    configMapApiPort: mongo_port
+
+    secretName: image-factory-secret
+    secretUsername: MONGO_USERNAME
+    secretPassword: MONGO_PASSWORD
+    secretUsernameKey: mongo-root-username
+    secretPasswordKey: mongo-root-password
+
+  service:
+    type: LoadBalancer
+    protocol: TCP
+    port: 16147
+    targetPort: 16147
+    nodePort: 30002
+
+  pv:
+    bindSourceCode:
+      volumeName: source-code-volume
+      mountVirtualPath: /app
+      pvcName: source-code-pvc
+      pvName: source-code-pv
+      mountLocalPath: /C/Users/linta/Desktop/Work/Smasoft/Projects/SmaAI/Image-Factory/application/server
+
+    bindData:
+      volumeName: bind-data-volume
+      mountVirtualPath: /ss
+      pvcName: bind-data-pvc
+      pvName: bind-data-pv
+      mountLocalPath: /C/Users/Public/Documents/SmaSoft/SmaAI/imgfa
+
+#database
+database:
+  appFullName: image-factory-mongo
+
+  replicaCount: 1
+
+  image:
+    repository: mongo
+    pullPolicy: IfNotPresent
+
+  env:
+    containerPort: 27017
+
+    secretName: image-factory-secret
+    secretUsername: MONGO_INITDB_ROOT_USERNAME
+    secretPassword: MONGO_INITDB_ROOT_PASSWORD
+    secretUsernameKey: mongo-root-username
+    secretPasswordKey: mongo-root-password
+
+  service:
+    type: LoadBalancer
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
+    nodePort: 30003
+
+  pv:
+    bindData:
+      volumeName: bind-database-volume
+      mountVirtualPath: /data/db
+      pvcName: bind-database-pvc
+      pvName: bind-database-pv
+      mountLocalPath: /C/Users/Public/Documents/SmaSoft/SmaAI/imgfa/data/db

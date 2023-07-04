@@ -1,0 +1,151 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-factory-fe
+  labels:
+    app: {{ .Values.frontend.appFullName }}
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.frontend.appFullName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.frontend.appFullName }}
+    spec:
+      containers:
+        - name: {{ .Values.frontend.appFullName }}
+          image: {{ .Values.frontend.image.repository }}
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.frontend.env.containerPort }}
+          env:
+            - name: {{ .Values.frontend.env.apiHostName }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.frontend.env.configMapName }}
+                  key: {{ .Values.frontend.env.configMapApiHost }}
+            - name: {{ .Values.frontend.env.apiPortName }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.frontend.env.configMapName }}
+                  key: {{ .Values.frontend.env.configMapApiPort }}
+          volumeMounts:
+            - name: {{ .Values.frontend.pv.frontendEnvConfig.volumeName }}
+              mountPath: {{ .Values.frontend.pv.frontendEnvConfig.mountVirtualPath }}
+              subPath: {{ .Values.frontend.pv.frontendEnvConfig.subPath }}
+              readOnly: {{ .Values.frontend.pv.frontendEnvConfig.isReadOnly }}
+      volumes:
+        - name: {{ .Values.frontend.pv.frontendEnvConfig.volumeName }}
+          configMap:
+            name: {{ .Values.frontend.env.configMapName }}
+      imagePullSecrets:
+        - name: {{ .Values.frontend.image.pullSecrets }}
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: image-factory-be
+#   labels:
+#     app: {{ .Values.backend.appFullName }}
+# spec:
+#   replicas: {{ .Values.backend.replicaCount }}
+#   selector:
+#     matchLabels:
+#       app: {{ .Values.backend.appFullName }}
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ .Values.backend.appFullName }}
+#     spec:
+#       containers:
+#         - name: {{ .Values.backend.appFullName }}
+#           image: {{ .Values.backend.image.repository }}
+#           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+#           ports:
+#             - containerPort: {{ .Values.backend.env.containerPort }}
+#           env:
+#             - name: {{ .Values.backend.env.apiHostName }}
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.backend.env.configMapName }}
+#                   key: {{ .Values.backend.env.configMapApiHost }}
+#             - name: {{ .Values.backend.env.apiPortName }}
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.backend.env.configMapName }}
+#                   key: {{ .Values.backend.env.configMapApiPort }}
+#             - name: {{ .Values.backend.env.secretUsername }}
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: {{ .Values.backend.env.secretName }}
+#                   key: {{ .Values.backend.env.secretUsernameKey }}
+#             - name: {{ .Values.backend.env.secretPassword }}
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: {{ .Values.backend.env.secretName }}
+#                   key: {{ .Values.backend.env.secretPasswordKey }}
+#           # volumeMounts:
+#           #   - mountPath: {{ .Values.backend.pv.bindSourceCode.mountVirtualPath }}
+#           #     name: {{ .Values.backend.pv.bindSourceCode.volumeName }}
+#             # - mountPath: {{ .Values.backend.pv.bindData.mountVirtualPath }}
+#             #   name: {{ .Values.backend.pv.bindData.volumeName }}
+
+#       # volumes:
+#       #   - name: {{ .Values.backend.pv.bindSourceCode.volumeName }}
+#       #     persistentVolumeClaim:
+#       #       claimName: {{ .Values.backend.pv.bindSourceCode.pvcName }}
+#         # - name: {{ .Values.backend.pv.bindData.volumeName }}
+#         #   persistentVolumeClaim:
+#         #     claimName: {{ .Values.backend.pv.bindData.pvcName }}
+
+#       imagePullSecrets:
+#         - name: {{ .Values.backend.image.pullSecrets }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: image-factory-mongo
+  # annotations:
+  #   "helm.sh/resource-policy": keep
+  labels:
+    app: {{ .Values.database.appFullName }}
+spec:
+  serviceName: "database"
+  replicas: {{ .Values.database.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.database.appFullName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.database.appFullName }}
+    spec:
+      containers:
+        - name: {{ .Values.database.appFullName }}
+          image: {{ .Values.database.image.repository }}
+          imagePullPolicy: {{ .Values.database.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.database.env.containerPort }}
+          env:
+            - name: {{ .Values.database.env.secretUsername }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.env.secretName }}
+                  key: {{ .Values.database.env.secretUsernameKey }}
+            - name: {{ .Values.database.env.secretPassword }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.env.secretName }}
+                  key: {{ .Values.database.env.secretPasswordKey }}
+          volumeMounts:
+            - mountPath: {{ .Values.database.pv.bindData.mountVirtualPath }}
+              name: {{ .Values.database.pv.bindData.volumeName }}
+
+      volumes:
+        - name: {{ .Values.database.pv.bindData.volumeName }}
+          # persistentVolumeClaim:
+          #   claimName: {{ .Values.database.pv.bindData.pvcName }}
+          emptyDir: {}

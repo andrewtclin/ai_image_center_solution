@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  imgfa-client:
+    image: registry.gitlab.com/smasoft-ai-team/application/imgfa/imgfa-client:${CLIENT_IMAGE_VERSION}
+    stdin_open: true
+    ports:
+      - "${CLIENT_PORT}:80"
+    container_name: imgfa-client
+    volumes:
+      - ./imgfa-config.js:/usr/share/nginx/html/imgfa-config.js
+
+    networks:
+      - image-factory
+    restart: always
+
+  imgfa-server:
+    image: registry.gitlab.com/smasoft-ai-team/application/imgfa/imgfa-be:${SERVER_IMAGE_VERSION}
+    ports:
+      - "${SERVER_PORT}:16147"
+    depends_on:
+      - mongo
+    container_name: imgfa-server
+    environment:
+      - MONGO_HOST=${MONGO_HOST}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+    volumes:
+      - /C/Users/Public/Documents/Smasoft/SmaAI/imgfa:/ss
+      - /C/Users/linta/Desktop/Work/Smasoft/Projects/SmaAI/Image-Factory/application/server:/app
+    networks:
+      - image-factory
+    restart: always
+
+  mongo:
+    image: mongo
+    ports:
+      - "${MONGO_PORT}:27017"
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
+    volumes:
+      - imgfa-mongodb-data:/data/db
+    networks:
+      - image-factory
+    restart: always
+
+networks:
+  image-factory:
+    driver: bridge
+
+volumes:
+  imgfa-mongodb-data:
+    driver: local

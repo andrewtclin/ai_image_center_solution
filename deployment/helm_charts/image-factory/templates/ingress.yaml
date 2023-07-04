@@ -1,0 +1,29 @@
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: image-factory-ingress
+# spec:
+#   rules:
+#     - host: image-factory-test
+#       http:
+#         paths:
+#           - path: /
+#             backend:
+#               serviceName: image-factory-fe
+#               servicePort: 80
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: image-factory-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: image-factory-fe-service
+              servicePort: 3000
