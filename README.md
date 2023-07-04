@@ -13,8 +13,8 @@
 - It provides a centralized platform for **storing and organizing images**, particularly for **AI image labelling purposes**.
 - The solution seamlessly integrates with the main AI training application, facilitating efficient preprocessing of images for labelling tasks.
 
-<img src="ai_image_center_demo1.png" alt="Alt Text" width="400" height="auto">
-<img src="ai_image_center_demo2.png" alt="Alt Text" width="400" height="auto">
+<img src="ai_image_center_demo1.png" alt="Alt Text" width="600" height="auto">
+<img src="ai_image_center_demo2.png" alt="Alt Text" width="600" height="auto">
 
 ### Features
 
