@@ -1,6 +1,6 @@
 ## Image Storage Centre Solution for AI Image Labelling
 
-### DEMO
+### Demo
 
 - Check out my demo video of enterprise Image storage centre and labelling:
   - [AI Image Center](https://www.youtube.com/watch?v=WPQIDdTpDag&feature=youtu.be)
